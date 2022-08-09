@@ -1,0 +1,27 @@
+#追記がある場合は一番下に足すこと
+sensor1: 48:F0:7B:78:4C:78
+sensor2: 48:F0:7B:78:47:51
+sensor3: 48:F0:7B:78:4C:6A
+sensor4: 48:F0:7B:78:47:49
+sensor5: 48:F0:7B:78:4C:6E
+sensor6: 48:F0:7B:78:4B:8C
+sensor7: 48:F0:7B:78:4B:8F
+sensor8: 48:F0:7B:78:4B:9A
+sensor9: 48:F0:7B:78:47:4E
+sensor10: 48:F0:7B:78:4B:99
+sensor11: 48:F0:7B:78:4B:76
+sensor12: 48:F0:7B:78:4B:97
+sensor13: 48:F0:7B:78:4B:74
+sensor14: 48:F0:7B:78:47:36
+sensor15: 48:F0:7B:78:4B:93
+sensor16: 48:F0:7B:78:47:33
+sensor17: 48:F0:7B:78:4B:77
+sensor18: 48:F0:7B:78:4C:70
+sensor19: 48:F0:7B:78:47:35
+
+
+mini-pc1: sensor2, sensor4, sensor6, sensor8, sensor10
+mini-pc2: sensor12, sensor13, sensor14, sensor16, sensor18
+mini-pc3: sensor1, sensor3, sensor5, sensor7, sensor9
+mini-pc4: sensor11, sensor15, sensor17, sensor19
+
