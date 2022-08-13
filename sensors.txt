@@ -18,6 +18,7 @@ sensor16: 48:F0:7B:78:47:33
 sensor17: 48:F0:7B:78:4B:77
 sensor18: 48:F0:7B:78:4C:70
 sensor19: 48:F0:7B:78:47:35
+test_sensor: 48:F0:7B:78:4B:81
 
 
 mini-pc1: sensor2, sensor4, sensor6, sensor8, sensor10

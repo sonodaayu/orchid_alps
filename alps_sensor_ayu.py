@@ -7,6 +7,7 @@ import sys
 import datetime
 import os
 import json
+from ftplib import FTP
  
 def s16(value):
     return -(value & 0b1000000000000000) | (value & 0b0111111111111111)
@@ -19,7 +20,7 @@ class NtfyDelegate(btle.DefaultDelegate):
     def __init__(self, params):
         btle.DefaultDelegate.__init__(self)
         # ... initialise here
- 
+
     def handleNotification(self, cHandle, data): 
         # ... perhaps check cHandle
         # ... process 'data'
@@ -44,7 +45,7 @@ class NtfyDelegate(btle.DefaultDelegate):
             AmbientLight = int((cal[22:24] + cal[20:22]), 16) / (0.05*0.928)
             print('Pressure:{0:.3f} Humidity:{1:.3f} Temperature:{2:.3f} '.format(Pressure, Humidity , Temperature))
             print('UV:{0:.3f} AmbientLight:{1:.3f} '.format(UV, AmbientLight))
-            #とりあえずminipcに保存
+            #localに保存
             min_now = datetime.datetime.now()
             min_now = min_now.strftime('%Y-%m-%d-%H-%M')
             hour_now = datetime.datetime.now()
@@ -64,23 +65,25 @@ class NtfyDelegate(btle.DefaultDelegate):
                 with open(target_file, 'w') as f:
                     json.dump(read_json, f, indent = 2)
 
-
             else:
                 new_dic = {}
                 new_dic[min_now] = min_dic
                 with open(target_file, 'w') as f:
                     json.dump(new_dic, f, indent = 2)
               
+                #新しいファイルが作成されるときに前の時間のデータをQNAPに転送
+                last_hour = (datetime.datetime.now() + datetime.timedelta(hours = -1)).strftime('%Y-%m-%d-%H')
+                trans_file_path = './data/' + alps.sensor_number + '/' + last_hour + '.json'
+                qnap_path = 'SmaAgri/Orchid/sonoda/' + alps.sensor_number + '/' + last_hour + '.json'
 
-
-
-
-            #SSDに保存
-            #QNAPのストレージに保存
-            #QIoTに転送
-
-            
- 
+                ftp_qnap = FTP('10.26.0.1')
+                ftp_qnap.set_pasv('true')
+                ftp_qnap.login('ayu_ftp', 'WestO831')
+                if os.path.isfile(trans_file_path):
+                  with open(trans_file_path, 'rb') as f:
+                    ftp_qnap.storlines('STOR /' + qnap_path, f)
+                ftp_qnap.close()
+              
 
 class AlpsSensor(Peripheral):
     def __init__(self,addr, sensor_number):
@@ -98,11 +101,9 @@ def get_mac_address(sensor_number):
     
 
 def main():
-#    alps = AlpsSensor(get_mac_address(sys.argv[1]), sys.argv[1])
-    #alps.setDelegate( NtfyDelegate(btle.DefaultDelegate) )
     print(alps.sensor_number)
     print(alps.address)
-    alps.setDelegate( NtfyDelegate(btle.DefaultDelegate) )
+    alps.setDelegate(NtfyDelegate(btle.DefaultDelegate))
  
     #Hybrid MAG ACC8G　100ms　/ Other 1s
     alps.writeCharacteristic(0x0013, struct.pack('<bb', 0x01, 0x00), True)# Custom1 Notify Enable 
@@ -113,8 +114,7 @@ def main():
     
     alps.writeCharacteristic(0x0018, struct.pack('<bbb', 0x04, 0x03, 0x00), True)# slowモード 
     
-    #alps.writeCharacteristic(0x0018, struct.pack('<bbbb', 0x05, 0x04, 0x3C, 0x00), True) # Slow 1sec (気圧,温度,湿度,UV,照度)     
-    alps.writeCharacteristic(0x0018, struct.pack('<bbbb', 0x05, 0x04, 0x3C, 0x00), True) # Slow 1sec (気圧,温度,湿度,UV,照度)     
+    alps.writeCharacteristic(0x0018, struct.pack('<bbbb', 0x05, 0x04, 0x02, 0x00), True) # Slow 1sec (気圧,温度,湿度,UV,照度)     
 
     alps.writeCharacteristic(0x0018, struct.pack('<bbb', 0x2F, 0x03, 0x01), True)# 設定内容保存
     alps.writeCharacteristic(0x0018, struct.pack('<bbb', 0x20, 0x03, 0x01), True)# センサ計測開始
