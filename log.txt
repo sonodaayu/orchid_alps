@@ -1,0 +1,22 @@
+[2022年 8月 26日 金曜日 10:26:47 JST] patrolling start for test_sensor1
+[2022年 8月 26日 金曜日 10:27:17 JST] test_sensor1 restart
+[2022年 8月 26日 金曜日 10:27:22 JST] patrolling start for test_sensor2
+[2022年 8月 26日 金曜日 10:27:52 JST] failed for 1 times
+[2022年 8月 26日 金曜日 10:28:22 JST] test_sensor2 restart
+[2022年 8月 26日 金曜日 10:44:46 JST] patrolling start for test_sensor1
+[2022年 8月 26日 金曜日 10:45:16 JST] test_sensor1 restart
+[2022年 8月 26日 金曜日 10:45:21 JST] patrolling start for test_sensor2
+[2022年 8月 26日 金曜日 10:45:51 JST] test_sensor2 restart
+[2022年 8月 26日 金曜日 11:14:39 JST] patrolling start for sensor1
+[2022年 8月 26日 金曜日 11:38:28 JST] patrolling start for sensor1
+[2022年 8月 26日 金曜日 11:40:28 JST] patrolling start for sensor1
+[2022年 8月 26日 金曜日 11:40:58 JST] sensor1 restart
+[2022年 8月 26日 金曜日 11:41:03 JST] patrolling start for sensor2
+[2022年 8月 26日 金曜日 11:41:33 JST] sensor2 failed for 1 times
+[2022年 8月 26日 金曜日 11:42:03 JST] sensor2 restart
+[2022年 8月 26日 金曜日 11:44:42 JST] patrolling start for sensor1
+[2022年 8月 26日 金曜日 11:45:32 JST] sensor1 failed for 1 times
+[2022年 8月 26日 金曜日 12:41:44 JST] patrolling start for sensor1
+[2022年 8月 26日 金曜日 12:42:15 JST] sensor1 restart
+[2022年 8月 26日 金曜日 12:42:20 JST] patrolling start for sensor2
+[2022年 8月 26日 金曜日 12:42:50 JST] sensor2 restart
